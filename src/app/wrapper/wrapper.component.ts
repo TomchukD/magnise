@@ -16,4 +16,8 @@ import { MarketComponent } from 'app/market/market.component';
 })
 export class WrapperComponent {
 
+    constructor() {
+    }
+
+
 }

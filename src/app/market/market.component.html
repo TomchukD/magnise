@@ -4,14 +4,14 @@
 <div class="market">
     <div class="market-col">
         <span>Symbol:</span>
-        <span>BTC/USD</span>
+        <span>{{ marketTitle ? marketTitle : '-' }}</span>
     </div>
     <div class="market-col">
         <span>Price:</span>
-        <span>44.55</span>
+        <span>${{ marketPrice ? (marketPrice) : '-' }}</span>
     </div>
     <div class="market-col">
         <span>Time:</span>
-        <span>agu 7, 9:45</span>
+        <span>{{ marketTime ? (marketTime | date: 'MMM d, y, h:mm a') : '-' }}</span>
     </div>
 </div>

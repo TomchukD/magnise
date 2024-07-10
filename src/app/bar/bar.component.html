@@ -1,9 +1,5 @@
 <mat-form-field class="bar-select">
-    <mat-select [formControl]="selectControl">
-        @for (crypto of dataSelect| async; track crypto) {
-            <mat-option [value]="crypto.asset_id">{{ crypto.name }}
-            </mat-option>
-        }
-    </mat-select>
+    <input matInput [formControl]="selectControl">
 </mat-form-field>
-<button class="bar-btn" [disabled]="!selectControl.value" (click)="subscribe()" mat-stroked-button>Subscribe</button>
+<button class="bar-btn" [disabled]="isDisabled" (click)="subscribe()" mat-stroked-button>Subscribe
+</button>
