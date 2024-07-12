@@ -32,14 +32,15 @@ export class MarketComponent implements OnInit, OnDestroy {
             if (!market) {
                 return;
             }
-            this.marketTitle = market;
+
             if (!this.isSend) {
                 this.marketWebsocketService.connect(market);
+                this.marketTitle = market;
                 this.isSend = !this.isSend;
                 return;
             }
-            debugger
             this.marketWebsocketService.sendMessage(market);
+            this.marketTitle = market;
         });
 
         this.marketWebsocketService.getMessages().subscribe({
@@ -48,6 +49,7 @@ export class MarketComponent implements OnInit, OnDestroy {
                 this.marketTime = data.time_exchange;
             },
             error: err => {
+                this.marketTitle = null;
                 console.log(err);
             }
         });
