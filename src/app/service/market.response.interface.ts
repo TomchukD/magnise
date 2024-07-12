@@ -1,6 +1,11 @@
 export interface MarketResponse {
-    time: string,
-    asset_id_base: string,
-    asset_id_quote: string,
-    rate: number,
+    price: number;
+    sequence: number;
+    size: number;
+    symbol_id: string;
+    taker_side: 'SELL';
+    time_coinapi: string;
+    time_exchange: string;
+    type: string;
+    uuid: string;
 }

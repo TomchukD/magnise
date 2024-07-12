@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MarketService } from 'app/service/market.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RepositoryMarket } from 'app/sahred/repository';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { MarketWebsocketService } from 'app/service/market.websocket.service';
 
 @Component({
     selector: 'app-market',
@@ -13,30 +13,51 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
     templateUrl: './market.component.html',
     styleUrl: './market.component.scss'
 })
-export class MarketComponent implements OnInit {
+export class MarketComponent implements OnInit, OnDestroy {
 
     public marketTitle: string | null = null;
 
-    public marketPrice: string | null = null;
+    public marketPrice: number | null = null;
 
     public marketTime: string | null = null;
 
-    constructor(private repositoryMarket: RepositoryMarket, private marketService: MarketService) {
+    private isSend = false;
+
+    constructor(private repositoryMarket: RepositoryMarket, private marketWebsocketService: MarketWebsocketService) {
     }
 
 
     ngOnInit(): void {
         this.repositoryMarket.marketData.subscribe(v => {
-            if (!v) return;
+            if (!v) {
+                return;
+            }
+            if (!this.isSend) {
+                this.marketWebsocketService.connect(v);
+                this.isSend = !this.isSend;
+                return;
+            }
+            debugger
+            this.marketWebsocketService.sendMessage(v);
             this.marketTitle = v;
-            this.updateMarket(v);
+
         });
+
+        this.marketWebsocketService.getMessages().subscribe({
+            next: data => {
+                this.marketPrice = data.price;
+                this.marketTime = data.time_exchange;
+            },
+            error: err => {
+                console.log(err);
+            }
+        });
+
     }
 
-    private updateMarket(params: string): void {
-        this.marketService.getData(params).subscribe(data => {
-            this.marketPrice = String(data.rate);
-            this.marketTime = data.time;
-        });
+    ngOnDestroy(): void {
+        this.marketWebsocketService.close();
     }
+
+
 }

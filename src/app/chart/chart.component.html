@@ -1,12 +1,13 @@
+<mat-button-toggle-group [formControl]="periodData">
+    <mat-button-toggle value="1HRS">1 day</mat-button-toggle>
+    <mat-button-toggle value="7DAY">7 day</mat-button-toggle>
+</mat-button-toggle-group>
 <div id="chart">
     <apx-chart
         [series]="chartOptions.series!"
         [chart]="chartOptions.chart!"
         [xaxis]="chartOptions.xaxis!"
         [dataLabels]="chartOptions.dataLabels!"
-        [grid]="chartOptions.grid!"
-        [stroke]="chartOptions.stroke!"
-        [title]="chartOptions.title!"
-    >
+        [title]="chartOptions.title!">
     </apx-chart>
 </div>
