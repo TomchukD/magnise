@@ -3,7 +3,7 @@ import { MatFormField, MatOption, MatSelect } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
-import { RepositoryMarket } from 'app/sahred/repository';
+import { RepositoryMarket } from 'app/shared/repository';
 import { MatInput } from '@angular/material/input';
 
 @Component({
@@ -23,7 +23,7 @@ import { MatInput } from '@angular/material/input';
 })
 export class BarComponent {
 
-    public selectControl = new FormControl<string | null>('BTC/USD');
+    public selectControl = new FormControl<string | null>(null);
 
     constructor(private repositoryMarket: RepositoryMarket) {
     }
@@ -32,7 +32,7 @@ export class BarComponent {
         return !this.selectControl.value;
     }
 
-    public subscribe(): void {
+    public onSubscribe(): void {
         this.repositoryMarket.marketData.next(
             this.selectControl.value!
         );

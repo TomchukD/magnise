@@ -1,6 +1,6 @@
 <mat-button-toggle-group [formControl]="periodData">
-    <mat-button-toggle value="1HRS">1 day</mat-button-toggle>
-    <mat-button-toggle value="7DAY">7 day</mat-button-toggle>
+    <mat-button-toggle [value]="dateE.HRS">1 day</mat-button-toggle>
+    <mat-button-toggle [value]="dateE.DAY">7 day</mat-button-toggle>
 </mat-button-toggle-group>
 <div id="chart">
     <apx-chart
@@ -8,6 +8,7 @@
         [chart]="chartOptions.chart!"
         [xaxis]="chartOptions.xaxis!"
         [dataLabels]="chartOptions.dataLabels!"
+        [legend]="chartOptions.legend!"
         [title]="chartOptions.title!">
     </apx-chart>
 </div>

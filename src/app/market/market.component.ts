@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RepositoryMarket } from 'app/sahred/repository';
+import { RepositoryMarket } from 'app/shared/repository';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { MarketWebsocketService } from 'app/service/market.websocket.service';
+import { MarketWebsocketService } from 'app/service/websokcet/market.websocket.service';
 
 @Component({
     selector: 'app-market',
@@ -28,19 +28,18 @@ export class MarketComponent implements OnInit, OnDestroy {
 
 
     ngOnInit(): void {
-        this.repositoryMarket.marketData.subscribe(v => {
-            if (!v) {
+        this.repositoryMarket.marketData.subscribe(market => {
+            if (!market) {
                 return;
             }
+            this.marketTitle = market;
             if (!this.isSend) {
-                this.marketWebsocketService.connect(v);
+                this.marketWebsocketService.connect(market);
                 this.isSend = !this.isSend;
                 return;
             }
             debugger
-            this.marketWebsocketService.sendMessage(v);
-            this.marketTitle = v;
-
+            this.marketWebsocketService.sendMessage(market);
         });
 
         this.marketWebsocketService.getMessages().subscribe({

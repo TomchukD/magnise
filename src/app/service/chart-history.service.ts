@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BASE_URL, HEADER } from 'app/service/base_api';
+import { BASE_URL, HEADER } from 'app/service/base-api';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ChartHistoryResponse } from 'app/service/chart.response.interface';
@@ -8,6 +8,7 @@ import { ChartHistoryResponse } from 'app/service/chart.response.interface';
     providedIn: 'root'
 })
 export class ChartHistoryService {
+    
     private API_URL = `${ BASE_URL }/ohlcv`;
 
     constructor(private http: HttpClient) {
